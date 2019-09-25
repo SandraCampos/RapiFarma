@@ -24,6 +24,16 @@ public class ProductoRepository implements Serializable{
 		return producto.getCodigo();
 	}
 	
+	public String modificar(Producto producto) throws Exception{
+		this.em.merge(producto);
+		return producto.getCodigo();
+	}
+	
+	public String eliminar(Producto producto) throws Exception{
+		this.em.remove(producto);
+		return producto.getCodigo();
+	}
+	
 	public boolean productoExiste(Producto producto) throws Exception{
 		TypedQuery<Producto> query = em.createQuery("FROM Producto p WHERE p.nombre = ?1",
 				Producto.class);

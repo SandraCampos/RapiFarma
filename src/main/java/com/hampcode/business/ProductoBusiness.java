@@ -23,6 +23,16 @@ public class ProductoBusiness implements Serializable{
 		return this.productoRepository.registrar(producto);
 	}
 	
+	@Transactional
+	public String modificar(Producto producto) throws Exception{
+		return this.productoRepository.modificar(producto);
+	}
+	
+	@Transactional
+	public String eliminar(Producto producto) throws Exception{	
+		return this.productoRepository.eliminar(producto);
+	}
+	
 	public List<Producto> listarTodo() throws Exception{
 		return this.productoRepository.listarTodo();
 	}
