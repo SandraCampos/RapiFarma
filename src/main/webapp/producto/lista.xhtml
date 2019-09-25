@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+		<ui:define name="content">
+			<h:form id="frm">
+				<p:growl id="men" />
+
+				<p:toolbar>
+					<f:facet name="right">
+						<p:commandButton value="Nuevo" icon="ui-icon-disk"
+							action="#{productoController.nuevoProducto()}" ajax="false" />
+
+						<p:commandButton value="Editar" icon="ui-icon-disk"
+							action="#{productoController.editarProducto()}" ajax="false" />
+
+					</f:facet>
+				</p:toolbar>
+				
+				<p:panelGrid id="panGriBuscador" columns="3" style="width:100%">
+					<p:outputLabel value="Buscar Por Nombre:" for="txtSearchName" />
+					<p:inputText id="txtSearchName"  value="#{productoController.filtroNombre}" />
+					<p:commandButton icon="ui-icon-search" 
+					  actionListener="#{productoController.buscarProductoPorNombre}"
+					  update=":frm:datTabProductos :frm:men"/>
+					  
+					<p:outputLabel value="Buscar Por Stock Minimo:" for="txtBuscarStockMinimo" />
+					<p:inputText id="txtBuscarStockMinimo"  value="#{productoController.stockMinimo}" />
+					<p:commandButton icon="ui-icon-search" 
+					  actionListener="#{productoController.buscarProductoPorStockMinimo}"
+					  update=":frm:datTabProductos :frm:men"/>
+				</p:panelGrid>
+
+
+				<p:dataTable id="datTabProductos"
+					emptyMessage="No existen productos registrados"
+					value="#{productoController.listaProducto}" var="producto"
+					
+					rowKey="#{producto.codigo}"
+					selectionMode="single"
+					selection="#{productoController.productoSeleccionado}"
+					
+					paginator="true" rows="10">
+					
+					
+					<p:ajax event="rowSelect"
+						listener="#{productoController.seleccionarProducto}" />
+					
+
+					<p:column headerText="Codigo">
+						<p:outputLabel value="#{producto.codigo}" />
+					</p:column>
+					
+					<p:column headerText="Proveedor">
+						<p:outputLabel value="#{producto.proveedor.nombre}" />									
+					</p:column>		
+					
+					<p:column headerText="Categoría">
+						<p:outputLabel value="#{producto.categoria.nombre}" />									
+					</p:column>		
+					
+					<p:column headerText="Nombre">
+						<p:outputLabel value="#{producto.nombre}" />									
+					</p:column>							
+					
+					<p:column headerText="Und_med">
+						<p:outputLabel value="#{producto.und_med}" />									
+					</p:column>
+					
+					<p:column headerText="Ubicación">
+						<p:outputLabel value="#{producto.ubicacion}" />									
+					</p:column>
+					
+					<p:column headerText="P.venta">
+						<p:outputLabel value="#{producto.precio_venta}" />													
+					</p:column>							
+					
+					<p:column headerText="Stock">
+						<p:outputLabel value="#{producto.stock}" />									
+					</p:column>
+					
+					<p:column headerText="Stock Mínimo">
+						<p:outputLabel value="#{producto.stock_minimo}" />									
+					</p:column>		
+					
+				</p:dataTable>
+
+
+
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</body>
+</html>

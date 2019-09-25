@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+		<ui:define name="content">
+			<h:form id="frm">
+				<p:growl id="men" />
+
+				<p:toolbar>
+					<f:facet name="right">
+						<p:commandButton value="Guardar" icon="ui-icon-disk" 
+						action="#{productoController.registrarProducto()}" ajax="false"/>
+
+						<p:commandButton value="Regresar" icon="ui-icon-disk"
+						  action="#{productoController.irListaProducto()}"
+						  immediate="true"
+						  ajax="false"/>
+					</f:facet>
+				</p:toolbar>
+
+				<p:panelGrid id="panGridProduct" columns="2" style="width:100%">
+				
+					<p:outputLabel value="Producto:" for="txtProducto" />
+					<p:inputText id="txtProducto" required="true" maxlength="45"
+					value="#{productoController.producto.codigo}" />																																							
+					
+					<p:outputLabel value = "Proveedor:"></p:outputLabel>
+					<p:selectOneMenu id="cboProveedor" required="true" effect="drop"
+						value="#{productoController.proveedorSeleccionado}"
+						converter="omnifaces.SelectItemsConverter">
+						<f:selectItem itemLabel="Seleccione una opción"
+							noSelectionOption="true" itemValue="" />
+						<f:selectItems value="#{productoController.listaProveedor}"
+							var="proveedor" itemLabel="#{proveedor.nombre}"
+							itemValue="#{proveedor}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel value = "Categoría:"></p:outputLabel>
+					<p:selectOneMenu id="cboCategoria" required="true" effect="drop"
+						value="#{productoController.categoriaSeleccionada}"
+						converter="omnifaces.SelectItemsConverter">
+						<f:selectItem itemLabel="Seleccione una opción"
+							noSelectionOption="true" itemValue="" />
+						<f:selectItems value="#{productoController.listaCategoria}"
+							var="categoria" itemLabel="#{categoria.nombre}"
+							itemValue="#{categoria}" />
+					</p:selectOneMenu>		
+						
+					<p:outputLabel value="Nombre:" for="txtNombre" />
+					<p:inputText id="txtNombre" required="true" maxlength="45"
+						value="#{productoController.producto.nombre}" />
+						
+					<p:outputLabel value="Und.med:" for="txtUndMed" />
+					<p:inputText id="txtUndMed" required="true" maxlength="45"
+						value="#{productoController.producto.und_med}" />
+						
+					<p:outputLabel value="Ubicación:" for="txtUbicacion" />
+					<p:inputText id="txtUbicacion" required="true" maxlength="45"
+						value="#{productoController.producto.ubicacion}" />
+						
+					<p:outputLabel value="P.venta:" for="txtPrecioVenta" />
+					<p:inputText id="txtPrecioVenta" required="true" maxlength="45"
+						value="#{productoController.producto.precio_venta}" />
+						
+					<p:outputLabel value="Stock:" for="txtStock" />
+					<p:inputText id="txtStock" required="true" maxlength="45"
+						value="#{productoController.producto.stock}" />
+						
+					<p:outputLabel value="Stock Mínimo:" for="txtStockMinimo" />
+					<p:inputText id="txtStockMinimo" required="true" maxlength="45"
+						value="#{productoController.producto.stock_minimo}" />
+										
+				</p:panelGrid>
+				<br></br>
+
+
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</body>
+</html>
