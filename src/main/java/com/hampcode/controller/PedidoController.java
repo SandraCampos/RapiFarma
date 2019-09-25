@@ -135,9 +135,19 @@ public class PedidoController implements Serializable{
 	}		
 	
 	public void agregarPedidoDetalle() {
-		this.pedidoDetalle.setProducto(this.producto);
-		this.listaPedidoDetalle.add(this.pedidoDetalle);
-		this.pedidoDetalle = new PedidoDetalle();
+		
+		try {			
+			if(this.pedidoDetalle.getCantidad() > 0) {
+				this.pedidoDetalle.setProducto(this.producto);
+				this.listaPedidoDetalle.add(this.pedidoDetalle);
+				this.pedidoDetalle = new PedidoDetalle();
+			}else {
+				Message.messageError("La cantidad ingresada debe ser mayor a 0");
+			}			
+		}catch (Exception e) {
+			Message.messageError("Error al agregar pedido detalle: " + e.getMessage());
+		}
+			
 	}	
 	
 	public void eliminarPedidoDetalle() {
