@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="pageTitle">Login</ui:insert></title>
+</h:head>
+
+<body>
+	<ui:insert name="header">
+		<h:form>
+			<p:toolbar>
+				<f:facet name="left">
+					<p:outputLabel value = "Inicio de Sesión"></p:outputLabel>
+				</f:facet>
+			</p:toolbar>
+			<p:panelGrid id="panGridCategoria" columns="2" style="width:100%">																																																														
+				<p:outputLabel value="Usuario:" for="txtUsuario" />
+				<p:inputText id="txtUsuario" required="true" maxlength="20"					
+					value="#{usuarioController.usuarioLogin}" />
+					
+				<p:outputLabel value="Clave:" for="pass" />
+				<p:password id="pass" value="#{usuarioController.claveLogin}"
+					required="true" ></p:password>																										
+			</p:panelGrid>										
+			<p:toolbar>
+				<f:facet name="right">
+					<p:commandButton value="Ingresar" icon="ui-icon-disk" 
+					action="#{usuarioController.ingresar()}" 
+					immediate="true"
+					ajax="false"/>				
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+	</ui:insert>
+
+	<ui:insert name="content">
+
+	</ui:insert>
+
+	<ui:insert name="footer">
+		<div>Copyright © hampcode, 2019. Todos los derechos reservados</div>
+	</ui:insert>
+</body>
+
+</html>
