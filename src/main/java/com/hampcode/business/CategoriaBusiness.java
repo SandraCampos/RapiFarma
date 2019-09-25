@@ -36,4 +36,8 @@ public class CategoriaBusiness implements Serializable{
 	public List<Categoria> listarTodo() throws Exception{
 		return this.categoriaRepository.listarTodo();
 	}
+	
+	public List<Categoria> listarPorNombre(String nombre) throws Exception{
+		return this.categoriaRepository.listarPorNombre(nombre);
+	}
 }

@@ -89,7 +89,15 @@ public class CategoriaController implements Serializable{
 	}
 	
 	public void buscarCategoriaPorNombre() {
-		
+		try {
+			this.listaCategoria = this.categoriaBusiness.listarPorNombre(this.filtroNombre.trim());
+			this.limpiarVariables();
+			if(this.listaCategoria.isEmpty()) {
+				Message.messageInfo("No se encontraron categorias");
+			}
+		}catch (Exception e) {
+			Message.messageError("Error al filtrar categoria por nombre: " + e.getMessage());
+		}
 	}
 	
 	public void seleccionarCategoria(SelectEvent e) {

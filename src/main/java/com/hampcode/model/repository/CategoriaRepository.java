@@ -38,4 +38,11 @@ public class CategoriaRepository implements Serializable{
 				Categoria.class);
 		return query.getResultList();
 	}
+	
+	public List<Categoria> listarPorNombre(String nombre) throws Exception{
+		TypedQuery<Categoria> query = this.em.createQuery("FROM Categoria c WHERE c.nombre LIKE ?1",
+				Categoria.class);
+		query.setParameter(1, "%" + nombre + "%");
+		return query.getResultList();
+	}
 }

@@ -12,68 +12,7 @@
 		<ui:define name="content">
 			<h:form id="frm">
 				<p:growl id="men" />
-
-				<p:toolbar>
-					<f:facet name="right">
-						<p:commandButton value="Guardar" icon="ui-icon-disk" />
-
-					</f:facet>
-				</p:toolbar>
-
-
-				<p:panelGrid id="panGridProduct" columns="2" style="width:100%">
-					<p:outputLabel value="Producto:" for="txtName" />
-					<p:inputText id="txtName" required="true" maxlength="45"
-						value="" />
-					<p:outputLabel value="Proveedor" for="txtSupplier" />
-					<p:inputText id="txtSupplier" required="true" maxlength="45"
-						value="" />
-					<p:outputLabel value="Categoria" for="txtCategory" />
-					<p:inputText id="txtCategory" required="true" maxlength="45"
-						value="" />
-					<p:outputLabel value="Precio Unitario" for="txtUnitPrice" />
-					<p:inputText id="txtUnitPrice" required="true" maxlength="45"
-						value="" />
-					<p:outputLabel value="Stock" for="txtStock" />
-					<p:inputText id="txtStock" required="true" maxlength="45"
-						value="" />
-				</p:panelGrid>
-				<br></br>
-
-
-				<p:dataTable id="datTabProducts"
-					emptyMessage="No existen productos registrados"
-					value="#{productController.products}" var="product"
-					
-					rowKey="#{product.id}"
-					selectionMode="single"
-					selection="#{productController.productSelect}"
-					
-					paginator="true" rows="10">
-					
-					
-					<p:ajax event="rowSelect"
-						listener="#{productController.selectProduct}" />
-					
-
-					<p:column headerText="Id">
-						<p:outputLabel value="#{product.id}" />
-					</p:column>
-					<p:column headerText="Producto">
-						<p:outputLabel value="#{product.name}" />
-					</p:column>
-					<p:column headerText="Proveedor">
-						<p:outputLabel value="#{product.supplier}" />
-					</p:column>
-					<p:column headerText="Categoria">
-						<p:outputLabel value="#{product.category}" />
-					</p:column>
-					
-				</p:dataTable>
-
 				
-
-
 			</h:form>
 		</ui:define>
 	</ui:composition>

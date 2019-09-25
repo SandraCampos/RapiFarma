@@ -13,9 +13,17 @@
 		<h:form>
 			<p:menubar autoDisplay="false">
 				<p:submenu label="Mantenedores" icon="ui-icon-pencil">
+					<p:menuitem icon="ui-icon-document" value="Proveedores"
+						url="/proveedor/lista.xhtml" />
 					<p:menuitem icon="ui-icon-document" value="Productos"
-						url="/index.xhtml" />
-				</p:submenu>
+						url="/producto/lista.xhtml" />
+					<p:menuitem icon="ui-icon-document" value="Categorias"
+						url="/categoria/lista.xhtml" />
+					<p:menuitem icon="ui-icon-document" value="Empleados"
+						url="/empleado/lista.xhtml" />
+					<p:menuitem icon="ui-icon-document" value="Pedidos"
+						url="/pedido/lista.xhtml" />								
+				</p:submenu>				
 			</p:menubar>
 		</h:form>
 	</ui:insert>
