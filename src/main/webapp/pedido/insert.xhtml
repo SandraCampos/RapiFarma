@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+		<ui:define name="content">
+			<h:form id="frm">
+				<p:growl id="men" showDetail="true"/>
+
+				<p:toolbar>
+					<f:facet name="right">
+						<p:commandButton value="Guardar" icon="ui-icon-disk" 
+						action="#{pedidoController.registrarPedido()}" ajax="false"/>
+
+						<p:commandButton value="Regresar" icon="ui-icon-disk"
+						  action="#{pedidoController.irListaPedido()}"
+						  immediate="true"
+						  ajax="false"/>
+					</f:facet>
+				</p:toolbar>
+
+				<p:panelGrid id="panGridPedido" columns="2" style="width:100%">																																																								        	
+					
+					<p:outputLabel value = "Fecha emisión:"></p:outputLabel>
+					<p:calendar id="fchEmision" value="#{pedidoController.pedido.fch_emision}"
+					required="true"></p:calendar>																																	
+										
+				</p:panelGrid>
+				
+				<p:dataTable id="datTabProductos"
+					emptyMessage="No existen productos registrados"
+					value="#{pedidoController.listaPedidoDetalle}" var="pedidoDetalle">																	
+					
+					<p:column headerText="P.Nombre">
+						<p:outputLabel value="#{pedidoDetalle.producto.categoria.nombre}" />									
+					</p:column>		
+					
+					<p:column headerText="P.Proveedor">
+						<p:outputLabel value="#{pedidoDetalle.producto.proveedor.nombre}" />									
+					</p:column>		
+					
+					<p:column headerText="P.Nombre">
+						<p:outputLabel value="#{pedidoDetalle.producto.nombre}" />									
+					</p:column>							
+					
+					<p:column headerText="P.Unimed">
+						<p:outputLabel value="#{pedidoDetalle.producto.und_med}" />									
+					</p:column>
+					
+					<p:column headerText="P.Ubicación">
+						<p:outputLabel value="#{pedidoDetalle.producto.ubicacion}" />									
+					</p:column>
+					
+					<p:column headerText="Cantidad">
+						<p:outputLabel value="#{pedidoDetalle.cantidad}" />									
+					</p:column>
+														
+				</p:dataTable>
+				
+				<p:toolbar>
+					<f:facet name="left">					    
+						<p:commandButton value="Añadir" icon="ui-icon-disk" 
+							onclick="PF('dgPedidoDetalle').show();">							
+						</p:commandButton> 
+						
+						<p:commandButton value="Eliminar" icon="ui-icon-disk"
+						  action="#{pedidoController.eliminarPedidoDetalle()}"
+						  immediate="true"
+						  ajax="false"/>
+					</f:facet>
+				</p:toolbar>		
+				
+				<p:dialog widgetVar="dgPedidoDetalle" 
+					header="Agregar Producto" width="450"
+					height="400">
+					<p:toolbar>
+						<f:facet name="right">
+							<p:commandButton value="Agregar"
+								process="@this :frm:panProductos"
+								actionListener="#{pedidoController.agregarPedidoDetalle()}"
+								update=":frm:panProductos :frm:datTabProductos :frm:men"
+								oncomplete="PF('dgPedidoDetalle').hide();" />
+							<p:commandButton value="Cancelar" process="@this"
+								update=":frm:panProductos"
+								oncomplete="PF('dgPedidoDetalle').hide();" />
+						</f:facet>
+					</p:toolbar>
+					<br />
+
+					<p:panelGrid id="panProductos" columns="2" style="width:100%">
+
+						<p:outputLabel value="Productos" for="cboProductos" />
+
+						<p:selectOneMenu id="cboProductos" required="true" effect="drop"
+							value="#{pedidoController.producto}"
+							converter="omnifaces.SelectItemsConverter" filter="true"
+							filterMatchMode="contains">
+							
+							<f:selectItems
+								value="#{pedidoController.listaProducto}"
+								var="producto" itemLabel="#{producto.nombre}"
+								itemValue="#{producto}" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Cantidad:" for="txtCantidad" />
+						<p:inputText id="txtCantidad" required="true" maxlength="45"
+						value="#{pedidoController.pedidoDetalle.cantidad}" />
+
+					</p:panelGrid>
+				</p:dialog>		
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</body>
+</html>
