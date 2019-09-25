@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+		<ui:define name="content">
+			<h:form id="frm">
+				<p:growl id="men" />
+
+				<p:toolbar>
+					<f:facet name="right">
+						<p:commandButton value="Nuevo" icon="ui-icon-disk"
+							action="#{pedidoController.nuevoPedido()}" ajax="false" />
+
+						<p:commandButton value="Editar" icon="ui-icon-disk"
+							action="#{pedidoController.editarPedido()}" ajax="false" />
+
+					</f:facet>
+				</p:toolbar>
+				
+				<p:panelGrid id="panGriBuscador" columns="3" style="width:100%">
+					<p:outputLabel value="Buscar Por Nombre:" for="txtSearchName" />
+					<p:inputText id="txtSearchName"  value="#{pedidoController.filtroNombre}" />
+					<p:commandButton icon="ui-icon-search" 
+					  actionListener="#{pedidoController.buscarPedidoPorNombre}"
+					  update=":frm:datTabPedidos :frm:men"/>
+				</p:panelGrid>
+
+				<p:dataTable id="datTabPedidos"
+					emptyMessage="No existen pedidos registrados"
+					value="#{pedidoController.listaPedido}" var="pedido"
+					
+					rowKey="#{pedido.codigo}"
+					selectionMode="single"
+					selection="#{pedidoController.pedidoSeleccionado}"
+					
+					paginator="true" rows="10">
+					
+					
+					<p:ajax event="rowSelect"
+						listener="#{pedidoController.seleccionarPedido}" />
+					
+
+					<p:column headerText="Codigo">
+						<p:outputLabel value="#{pedido.codigo}" />
+					</p:column>									
+					
+					<p:column headerText="Fecha Emisión">
+						<p:outputLabel value="#{pedido.fch_emision}" />									
+					</p:column>		
+					
+					<p:column headerText="Fecha Recepción">
+						<p:outputLabel value="#{pedido.fch_recepcion}" />									
+					</p:column>							
+					
+					<p:column headerText="Estado">
+						<p:outputLabel value="#{pedido.estado}" />									
+					</p:column>
+														
+				</p:dataTable>
+
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</body>
+</html>
